@@ -1,0 +1,22 @@
+server:
+  port: 8080
+clines:
+  swagger:
+    refresh-rate: 60000
+    services:
+      tour-service: http://tour-service
+      place-service: http://place-service
+      question-service: http://question-service
+      city-service: http://city-service
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+okta:
+  oauth2:
+    issuer: https://login.clines.de/oauth2/default
+    client-id: ${OAUTH2_DOCS_CLIENT_ID:id}
+    client-secret: ${OAUTH2_DOCS_CLIENT_SECRET:secret}
+    redirect-uri: /authorization-code/callback

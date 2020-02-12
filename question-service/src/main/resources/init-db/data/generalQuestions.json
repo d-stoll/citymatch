@@ -1,0 +1,49 @@
+[
+  {
+    "text": "Do you like historian architecture?",
+    "tags": ["castle", "city_hall"],
+    "photos": [
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/historian-architecture/Neuschwanstein_Castle_from_Marienbr%C3%BCcke%2C_2011_May.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/historian-architecture/Panor%C3%A1mica_Oto%C3%B1o_Alc%C3%A1zar_de_Segovia.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/historian-architecture/Bodiam-castle-10My8-1197.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/historian-architecture/001._Ch%C3%A2teau_de_Ch%C3%A2teaubriand.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/historian-architecture/Wien_Rathaus_hochaufl%C3%B6send.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/historian-architecture/San_Francisco_City_Hall_2.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/historian-architecture/Rathaus_2012-09-09_FHB0066%2CT001.JPG"
+    ]
+  },
+  {
+    "text": "Do you like museums?",
+    "tags": ["museum"],
+    "photos": [
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/museums/Louvre_2007_02_24_c.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/museums/Egyptian_Museum_(303).jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/museums/Gem%C3%A4ldegalerie_IMG_1385-2.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/museums/Berlin_Gem%C3%A4ldegalerie_007.jpg"]
+  },
+  {
+    "text": "Do you like art galleries?",
+    "tags": ["art_gallery"],
+    "photos": [
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/art-galleries/Pierre-Auguste_Renoir_-_Ambroise_Vollard.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/art-galleries/Gem%C3%A4ldegalerie_IMG_1385-2.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/art-galleries/1920px-19-11-01-Gemaeldegalerie-Berlin-RalfR_DSF3932.jpg"
+    ]
+  },
+  {
+    "text": "Do you like churches?",
+    "tags": ["church"],
+    "photos": [
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/churches/450px-St._Patrick's_Roman_Catholic_Church.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/churches/Cologne_cathedrale_vue_sud.jpg",
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/churches/Frauenkirche_Munich_-_View_from_Peterskirche_Tower2.jpg"
+    ]
+  },
+  {
+    "text": "Do you like parks?",
+    "tags": ["park"],
+    "photos": [
+      "https://storage.googleapis.com/images.clines.de/general-question-photos/parks/Bute_Park%2C_Cardiff.jpg"
+    ]
+  }
+]

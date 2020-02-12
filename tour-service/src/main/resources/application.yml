@@ -1,0 +1,27 @@
+server:
+  port: 80
+spring:
+  application:
+    name: tour-service
+  cloud:
+    stream:
+      bindings:
+        placeReplySink-in-0:
+          destination: place-replies
+        placeRequestSource-out-0:
+          destination: place-requests
+    function:
+      definition: placeReplySink;placeRequestSource
+okta:
+  oauth2:
+    issuer: https://login.clines.de/oauth2/default
+    audience: api://default
+clines:
+  services:
+    question-service: http://question-service
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true

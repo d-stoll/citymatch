@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: place-service
+  labels:
+    app: place-service
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: place-service
+  template:
+    metadata:
+      labels:
+        app: place-service
+    spec:
+      volumes:
+        - name: google-cloud-key
+          secret:
+            secretName: pubsub-key
+      containers:
+        - name: place-service
+          image: eu.gcr.io/clines/place-service
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 80
+            initialDelaySeconds: 45
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 80
+            initialDelaySeconds: 90
+            timeoutSeconds: 10
+            failureThreshold: 10
+          volumeMounts:
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
+          resources:
+            requests:
+              cpu: 50m
+      imagePullSecrets:
+        - name: regcred

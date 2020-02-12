@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: question-service
+  labels:
+    app: question-service
+spec:
+  selector:
+    matchLabels:
+      app: question-service
+  template:
+    metadata:
+      labels:
+        app: question-service
+    spec:
+      containers:
+        - name: question-service
+          image: eu.gcr.io/clines/question-service
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 80
+            initialDelaySeconds: 45
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 80
+            initialDelaySeconds: 90
+            timeoutSeconds: 10
+            failureThreshold: 10
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: QUESTION_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: question-db-cred-secret
+                  key: username
+            - name: QUESTION_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: question-db-cred-secret
+                  key: password
+          resources:
+            requests:
+              cpu: 50m
+      imagePullSecrets:
+        - name: regcred

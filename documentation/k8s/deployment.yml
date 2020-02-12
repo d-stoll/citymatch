@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: documentation
+  labels:
+    app: documentation
+    tier: backend-docs
+spec:
+  selector:
+    matchLabels:
+      app: documentation
+  template:
+    metadata:
+      labels:
+        app: documentation
+    spec:
+      containers:
+        - name: documentation
+          image: eu.gcr.io/clines/documentation
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: OAUTH2_DOCS_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: oauth2_client_id
+                  name: docs-service-secrets
+            - name: OAUTH2_DOCS_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: oauth2_client_secret
+                  name: docs-service-secrets
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 45
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 90
+            timeoutSeconds: 10
+            failureThreshold: 10
+          resources:
+            requests:
+              cpu: 10m
+      imagePullSecrets:
+        - name: regcred

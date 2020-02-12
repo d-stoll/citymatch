@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tour-service
+  labels:
+    app: tour-service
+spec:
+  selector:
+    matchLabels:
+      app: tour-service
+  template:
+    metadata:
+      labels:
+        app: tour-service
+    spec:
+      volumes:
+        - name: google-cloud-key
+          secret:
+            secretName: pubsub-key
+      containers:
+        - name: tour-service
+          image: eu.gcr.io/clines/tour-service
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 80
+            initialDelaySeconds: 45
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 80
+            initialDelaySeconds: 90
+            timeoutSeconds: 10
+            failureThreshold: 10
+          resources:
+            requests:
+              cpu: 50m
+          volumeMounts:
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
+            - name: TOUR_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: tour-db-cred-secret
+                  key: username
+            - name: TOUR_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tour-db-cred-secret
+                  key: password
+      imagePullSecrets:
+        - name: regcred

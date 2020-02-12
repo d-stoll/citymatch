@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${TOUR_DB_USERNAME}:${TOUR_DB_PASSWORD}@tour-db:27017
+      database: tour-db
+  cloud:
+    gcp:
+      project-id: clines
+    stream:
+      default-binder: pubsub
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+logging:
+  level:
+    root: INFO

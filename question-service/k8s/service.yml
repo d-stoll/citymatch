@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: question-service
+  labels:
+    app: question-service
+spec:
+  selector:
+    app: question-service
+  ports:
+    - port: 80
+      targetPort: 80

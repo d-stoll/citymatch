@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    gcp:
+      project-id: clines
+    stream:
+      default-binder: pubsub
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+logging:
+  level:
+    root: INFO

@@ -1,0 +1,33 @@
+image: openjdk:8-alpine
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+stages:
+  - build
+  - verification
+  - publish
+
+gradle-build:
+  stage: build
+  script: ./gradlew bootJar
+  only:
+    - master
+    - merge_requests
+
+gradle-check:
+  stage: verification
+  script: ./gradlew check
+  only:
+    - master
+    - merge_requests
+
+gradle-jib:
+  stage: publish
+  script:
+    - ./gradlew jib -Pkeys=$GCLOUD_SERVICE_ACCOUNT_KEYS
+  only:
+    - master

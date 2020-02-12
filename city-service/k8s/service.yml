@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: city-service
+  labels:
+    app: city-service
+spec:
+  selector:
+    app: city-service
+  ports:
+    - port: 80
+      targetPort: 80

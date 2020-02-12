@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: city-service
+  labels:
+    app: city-service
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: city-service
+  template:
+    metadata:
+      labels:
+        app: city-service
+    spec:
+      containers:
+        - name: city-service
+          image: eu.gcr.io/clines/city-service
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 80
+            initialDelaySeconds: 45
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 80
+            initialDelaySeconds: 90
+            timeoutSeconds: 10
+            failureThreshold: 10
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+          resources:
+            requests:
+              cpu: 25m
+      imagePullSecrets:
+        - name: regcred

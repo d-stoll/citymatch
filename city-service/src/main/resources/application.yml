@@ -1,0 +1,12 @@
+server:
+  port: 80
+okta:
+  oauth2:
+    issuer: https://login.clines.de/oauth2/default
+    audience: api://default
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true

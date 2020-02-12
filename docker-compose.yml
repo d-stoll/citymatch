@@ -1,0 +1,89 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3
+
+  gateway:
+    image: eu.gcr.io/clines/gateway
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8099:8099"
+
+  tour-service:
+    image: eu.gcr.io/clines/tour-service
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      TOUR_DB_USERNAME: ts
+      TOUR_DB_PASSWORD: pwd
+    depends_on:
+      - tour-db
+      - rabbitmq
+
+  tour-db:
+    image: mongo
+    volumes:
+      - tourdb-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ts
+      MONGO_INITDB_ROOT_PASSWORD: pwd
+      MONGO_INITDB_DATABASE: tour-db
+
+  place-service:
+    image: eu.gcr.io/clines/place-service
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      - rabbitmq
+
+  question-service:
+    image: eu.gcr.io/clines/question-service
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      QUESTION_DB_USERNAME: qs
+      QUESTION_DB_PASSWORD: pwd
+    depends_on:
+      - question-db
+
+  question-db:
+    image: mongo
+    volumes:
+      - ./question-service/src/main/resources/init-db/data:/init-data:ro
+      - ./question-service/src/main/resources/init-db/scripts:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: qs
+      MONGO_INITDB_ROOT_PASSWORD: pwd
+      MONGO_INITDB_DATABASE: question-db
+
+  city-service:
+    image: eu.gcr.io/clines/city-service
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      CITY_DB_USERNAME: postgres
+      CITY_DB_PASSWORD: pwd
+    depends_on:
+      - city-db
+
+  city-db:
+    image: postgres:alpine
+    volumes:
+      - ./city-service/src/main/resources/init-db/data:/init-data:ro
+      - ./city-service/src/main/resources/init-db/scripts:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_PASSWORD: pwd
+
+  documentation:
+    image: eu.gcr.io/clines/documentation
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8080:8080"
+    depends_on:
+      - city-service
+      - tour-service
+      - question-service
+      - place-service
+
+volumes:
+  tourdb-data:

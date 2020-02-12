@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: city-db-postgres
+  labels:
+    app: city-db-postgres
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: city-db-postgres
+  template:
+    metadata:
+      labels:
+        app: city-db-postgres
+    spec:
+      containers:
+        - name: city-db-postgres
+          image: postgres:alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              value: QDfz8EiAGk7GAhryaRg
+          resources:
+            requests:
+              cpu: 50m

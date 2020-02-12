@@ -1,0 +1,37 @@
+server:
+  port: 8099
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      routes:
+        - uri: http://tour-service
+          predicates:
+            - Path=/tours/**
+          filters:
+            - StripPrefix=1
+        - uri: http://question-service
+          predicates:
+            - Path=/questions/**
+          filters:
+            - StripPrefix=1
+        - uri: http://place-service
+          predicates:
+            - Path=/places/**
+          filters:
+            - StripPrefix=1
+        - uri: http://city-service
+          predicates:
+            - Path=/cities/**
+          filters:
+            - StripPrefix=1
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true

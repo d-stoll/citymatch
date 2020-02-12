@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${QUESTION_DB_USERNAME}:${QUESTION_DB_PASSWORD}@question-db:27017
+      database: question-db
+logging:
+  level:
+    root: INFO

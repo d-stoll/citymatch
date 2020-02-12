@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://city-db:5432/postgres
+    username: ${CITY_DB_USERNAME}
+    password: ${CITY_DB_PASSWORD}
+logging:
+  level:
+    root: INFO

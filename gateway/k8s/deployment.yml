@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+spec:
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+        - name: gateway
+          image: eu.gcr.io/clines/gateway
+          ports:
+            - containerPort: 8099
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8099
+            initialDelaySeconds: 45
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8099
+            initialDelaySeconds: 90
+            timeoutSeconds: 10
+            failureThreshold: 10
+          resources:
+            requests:
+              cpu: 50m
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+      imagePullSecrets:
+        - name: regcred

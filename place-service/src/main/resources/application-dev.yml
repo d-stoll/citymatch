@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    gcp:
+      pubsub:
+        enabled: false
+    stream:
+      default-binder: rabbit
+  rabbitmq:
+    host: rabbitmq
+logging:
+  level:
+    root: INFO

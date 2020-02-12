@@ -1,0 +1,16 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${TOUR_DB_USERNAME}:${TOUR_DB_PASSWORD}@tour-db:27017
+      database: tour-db
+  cloud:
+    gcp:
+      pubsub:
+        enabled: false
+    stream:
+      default-binder: rabbit
+  rabbitmq:
+    host: rabbitmq
+logging:
+  level:
+    root: INFO
