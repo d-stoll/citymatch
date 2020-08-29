@@ -1,4 +1,4 @@
-# Backend services for clines
+# Backend services for CityMatch
 
 This is a backend which I developed for a university project. It's for an app that allows you to create a city trip 
 with simple yes/no questions.
@@ -40,7 +40,7 @@ Here is a list of all services:
 | [city-service](/city-service)  |  REST-API for querying cities around the world. | [docs](http://localhost:8080/swagger-ui.html#/city-service)
 
 ### Security
-The clines backend uses the OIDC standard for authentication and authorization of users. The authorization server is 
+The CityMatch (formerly clines) backend uses the OIDC standard for authentication and authorization of users. The authorization server is 
 provided by [Okta](https://www.okta.com/) and can be reached at https://login.clines.de/oauth2/default.
 
 To authenticate against the backend services a valid access token must be passed in the Http-Header field 
